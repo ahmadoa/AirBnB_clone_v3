@@ -1,30 +1,34 @@
 #!/usr/bin/python3
 """ index py """
 from api.v1.views import app_views
-from flask import jsonify
-from models.amenity import Amenity
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
+from flask import jsonify, Blueprint, Flask
 from models import storage
 
 
-@app_views.route('/status', methods=['GET'], strict_slashes=False)
+ObjectsObj = {
+    "amenities": "Amenity",
+    "cities": "City",
+    "places": "Place",
+    "reviews": "Review",
+    "states": "State",
+    "users": "User"
+}
+
+
+@app_views.route('/status', strict_slashes=False)
 def status():
     """ API's status """
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats', methods=['GET'], strict_slashes=False)
+@app_views.route('/stats', strict_slashes=False)
 def number_objects():
     """ retrieves number of objects by type """
-    classes = [Amenity, City, Place, Review, State, User]
-    names = ["amenities", "cities", "places", "reviews", "states", "users"]
-
     num_objs = {}
-    for i in range(len(classes)):
-        num_objs[names[i]] = storage.count(classes[i])
-
+    for key, value in ObjectsObj.items():
+        num_objs[key] = storage.count(value)
     return jsonify(num_objs)
+
+
+if __name__ == "__main__":
+    pass
