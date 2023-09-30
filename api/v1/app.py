@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-cors = CORS(app, resources={"/*": {"origins": "0.0.0.0"}})
+app.url_map.strict_slashes = False
 
 
 @app.teardown_appcontext
@@ -26,4 +26,4 @@ def not_found(error):
 if __name__ == "__main__":
     """ main method """
     app.run(host=os.getenv('HBNB_API_HOST', '0.0.0.0'),
-            port=int(os.getenv('HBNB_API_PORT', '5000')), threaded=True)
+            port=int(os.getenv('HBNB_API_PORT', 5000)), threaded=True)

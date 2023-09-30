@@ -20,7 +20,7 @@ def get_states():
                  strict_slashes=False)
 def get_state(state_id):
     """ retrieves a specific state """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if not state:
         abort(404)
 
@@ -31,14 +31,14 @@ def get_state(state_id):
                  strict_slashes=False)
 def delete_state(state_id):
     """ deletes a state object """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if not state:
         abort(404)
 
-    state.delete()
+    storage.delete(state)
     storage.save()
 
-    return (jsonify({}))
+    return jsonify({}), 200
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
@@ -60,7 +60,7 @@ def post_state():
                  strict_slashes=False)
 def put_state(state_id):
     """ update a state object """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     if not request.get_json():
