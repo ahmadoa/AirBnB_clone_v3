@@ -17,13 +17,13 @@ def get_states():
     return jsonify(states)
 
 
-@app_views.route('/states/<string:state_id>', methods=['GET'],
-                 strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
 def get_state(state_id):
-    """ get a specific state's info """
-    state = storage.get("State", state_id)
-    if state is None:
+    """ Retrieves a specific State """
+    state = storage.get(State, state_id)
+    if not state:
         abort(404)
+
     return jsonify(state.to_dict())
 
 
