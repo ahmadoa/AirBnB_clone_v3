@@ -39,8 +39,7 @@ def post_state():
     return make_response(jsonify(state.to_dict()), 201)
 
 
-@app_views.route('/states/<string:state_id>', methods=['PUT'],
-                 strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
     """ update an existing state """
     state = storage.get("State", state_id)
@@ -55,8 +54,7 @@ def update_state(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<string:state_id>', methods=['DELETE'],
-                 strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     """deletes a state based on its state_id"""
     state = storage.get("State", state_id)

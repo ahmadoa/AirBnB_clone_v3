@@ -8,11 +8,9 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app, resources={r'/api/v1/*': {'origins': '0.0.0.0'}})
+CORS(app, resources={"/*": {'origins': '0.0.0.0'}})
 
 app.register_blueprint(app_views)
-app.url_map.strict_slashes = False
-
 
 @app.teardown_appcontext
 def close_db(error):
@@ -23,7 +21,7 @@ def close_db(error):
 @app.errorhandler(404)
 def not_found(error):
     """ 404 error """
-    return jsonify({'error': "Not found"}), 404
+    return make_response(jsonify({'error': "Not found"}), 404)
 
 
 if __name__ == "__main__":
