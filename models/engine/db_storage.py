@@ -77,13 +77,13 @@ class DBStorage:
 
     def get(self, cls, id):
         """returns the object based on the class and its ID"""
-        if cls not in classes.value():
+        if cls is not in classes.values():
             return None
 
-        all_cls = models.storage.all(cls)
-        for value in all_cls.values():
-            if (value.id == id):
-                return value
+        all_classes = models.storage.all(cls)
+        for val in all_classes.values():
+            if (val.id == id):
+                return val
 
         return None
 
